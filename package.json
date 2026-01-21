@@ -1,11 +1,15 @@
 {
-    "name": "java-code-checker",
+    "name": "java-code-analyzer",
     "version": "1.0.0",
-    "description": "Java代码缺陷检查器",
+    "description": "Java代码缺陷检测工具",
+    "main": "api/analyze.js",
     "scripts": {
-        "dev": "vercel dev"
+        "dev": "vercel dev",
+        "deploy": "vercel --prod"
     },
-    "dependencies": {
-        "axios": "^1.6.0"
+    "dependencies": {},
+    "devDependencies": {},
+    "engines": {
+        "node": ">=18.x"
     }
 }

@@ -1,17 +1,28 @@
 {
-    "functions": {
-        "api/check.js": {
-            "maxDuration": 30
-        }
-    },
-    "rewrites": [
+    "version": 2,
+    "builds": [
         {
-            "source": "/",
-            "destination": "/public/index.html"
+            "src": "api/analyze.js",
+            "use": "@vercel/node"
         },
         {
-            "source": "/api/check",
-            "destination": "/api/check.js"
+            "src": "public/**",
+            "use": "@vercel/static"
+        }
+    ],
+    "routes": [
+        {
+            "src": "/api/(.*)",
+            "dest": "/api/analyze.js",
+            "headers": {
+                "Access-Control-Allow-Origin": "*",
+                "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
+                "Access-Control-Allow-Headers": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"
+            }
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/public/$1"
         }
     ]
 }
