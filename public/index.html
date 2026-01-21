@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java代码缺陷检查器</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-bug"></i> Java代码缺陷检查器</h1>
+            <p class="subtitle">使用DeepSeek AI分析Java代码，发现潜在问题并提供改进建议</p>
+        </header>
+
+        <main>
+            <div class="app-container">
+                <div class="input-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-code"></i> 输入Java代码</h2>
+                        <div class="actions">
+                            <button id="exampleBtn" class="btn secondary">
+                                <i class="fas fa-eye"></i> 查看示例
+                            </button>
+                            <button id="clearBtn" class="btn secondary">
+                                <i class="fas fa-trash"></i> 清空
+                            </button>
+                        </div>
+                    </div>
+                    <textarea id="codeInput" placeholder="在这里粘贴或输入您的Java代码...">
+public class Example {
+    public static void main(String[] args) {
+        int a = 10;
+        int b = 0;
+        
+        // 潜在的除零错误
+        int result = a / b;
+        
+        System.out.println("结果: " + result);
+        
+        // 未关闭的资源
+        Scanner scanner = new Scanner(System.in);
+        String input = scanner.next();
+    }
+}</textarea>
+                    <div class="file-upload">
+                        <label for="fileUpload" class="btn upload-btn">
+                            <i class="fas fa-upload"></i> 上传Java文件
+                        </label>
+                        <input type="file" id="fileUpload" accept=".java,.txt" style="display: none;">
+                        <span id="fileName">未选择文件</span>
+                    </div>
+                </div>
+
+                <div class="control-section">
+                    <button id="checkBtn" class="btn primary">
+                        <i class="fas fa-search"></i> 检查代码缺陷
+                    </button>
+                    <div class="loading" id="loading" style="display: none;">
+                        <div class="spinner"></div>
+                        <span>正在分析代码...</span>
+                    </div>
+                </div>
+
+                <div class="output-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-clipboard-check"></i> 分析结果</h2>
+                        <button id="copyBtn" class="btn secondary" disabled>
+                            <i class="far fa-copy"></i> 复制结果
+                        </button>
+                    </div>
+                    <div id="resultOutput" class="result-output">
+                        <div class="placeholder">
+                            <i class="fas fa-chart-line"></i>
+                            <p>分析结果将显示在这里</p>
+                            <p class="hint">点击上方"检查代码缺陷"按钮开始分析</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by DeepSeek AI | 部署在 Vercel</p>
+            <p class="tips">
+                <i class="fas fa-lightbulb"></i> 提示：支持复杂代码分析，包括安全漏洞、性能问题、代码规范等
+            </p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

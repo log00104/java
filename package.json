@@ -1,0 +1,11 @@
+{
+    "name": "java-code-checker",
+    "version": "1.0.0",
+    "description": "Java代码缺陷检查器",
+    "scripts": {
+        "dev": "vercel dev"
+    },
+    "dependencies": {
+        "axios": "^1.6.0"
+    }
+}
