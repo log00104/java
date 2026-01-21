@@ -1,6 +1,11 @@
 // API配置
+// 修改这部分配置
 const API_CONFIG = {
+    // 如果是部署在Vercel，使用相对路径
     endpoint: '/api/analyze',
+    // 或者使用完整的URL（如果是本地开发）
+    // endpoint: 'http://localhost:3000/api/analyze',
+    
     apiKey: 'sk-6216155df6a340edaa60bc6f135a3f30',
     model: 'deepseek-chat',
     maxTokens: 2000,
