@@ -491,37 +491,56 @@ class CodeAnalyzer {
         return prompt;
     }
 
-    async callDeepSeekAPI(prompt) {
+    // 修改 callDeepSeekAPI 函数
+async callDeepSeekAPI(prompt) {
+    const messages = [
+        {
+            role: 'system',
+            content: '你是一个专业的Java代码审查专家。请仔细分析代码并提供详细的缺陷报告。'
+        },
+        {
+            role: 'user',
+            content: prompt
+        }
+    ];
+    
+    try {
         const response = await fetch(API_CONFIG.endpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${API_CONFIG.apiKey}`
+                // 注意：如果API在Vercel上，不需要Authorization头
+                // Authorization头应该在服务器端API中添加
             },
             body: JSON.stringify({
+                messages: messages,
                 model: API_CONFIG.model,
-                messages: [
-                    {
-                        role: 'system',
-                        content: '你是一个专业的Java代码审查专家。请仔细分析代码并提供详细的缺陷报告。'
-                    },
-                    {
-                        role: 'user',
-                        content: prompt
-                    }
-                ],
                 temperature: API_CONFIG.temperature,
                 max_tokens: API_CONFIG.maxTokens
             })
         });
-
+        
+        console.log('API响应状态:', response.status);
+        
         if (!response.ok) {
-            throw new Error(`API请求失败: ${response.status}`);
+            const errorData = await response.json();
+            throw new Error(`API请求失败: ${response.status} - ${errorData.message || '未知错误'}`);
         }
-
+        
         const data = await response.json();
-        return data.choices[0]?.message?.content || '';
+        console.log('API响应数据:', data);
+        
+        if (data.success && data.choices && data.choices[0]) {
+            return data.choices[0].message.content;
+        } else {
+            throw new Error('API响应格式不正确');
+        }
+        
+    } catch (error) {
+        console.error('API调用失败:', error);
+        throw error;
     }
+}
 
     parseAnalysisResult(aiResponse) {
         try {
